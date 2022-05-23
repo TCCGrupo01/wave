@@ -22,116 +22,226 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Padding(
+      body: SingleChildScrollView(
         padding: const EdgeInsets.fromLTRB(10.0, 48.0, 10.0, 10.0),
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Row(
-                // É a primeira seção de produtos da página home.
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      InkWell(
-                        splashColor: Colors.black26,
-                        onTap: () {},
-                        child: Ink.image(
-                          image: const AssetImage('assets/images/parmegiana_de_frango.png'),
-                          height: 100,
-                          width: 100,
-                          fit: BoxFit.cover,
-                        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Row(
+              // É a primeira seção de produtos da página home.
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    InkWell(
+                      splashColor: Colors.black26,
+                      onTap: () {},
+                      child: Ink.image(
+                        image: const AssetImage('assets/images/snacks.png'),
+                        height: 70,
+                        width: 107,
+                        fit: BoxFit.cover,
                       ),
-                      const SizedBox(
-                          height:
-                              6), // SizedBox é uma caixa usada para separar os elementos.
-                      const Text(
-                        'Snacks',
-                        style: TextStyle(color: Colors.grey, fontSize: 18),
-                      )
-                    ],
-                  ),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      InkWell(
-                        splashColor: Colors.black26,
-                        onTap: () {},
-                        child: Ink.image(
-                          image: const AssetImage(
-                              'assets/images/parmegiana_de_frango.png'),
-                          height: 100,
-                          width: 100,
-                          fit: BoxFit.cover,
-                        ),
+                    ),
+                    const SizedBox(
+                        height:
+                            6), // SizedBox é uma caixa usada para separar os elementos.
+                    const Text(
+                      'Snacks',
+                      style: TextStyle(color: Colors.grey, fontSize: 18),
+                    )
+                  ],
+                ),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    InkWell(
+                      splashColor: Colors.black26,
+                      onTap: () {},
+                      child: Ink.image(
+                        image: const AssetImage('assets/images/refeicao.png'),
+                        height: 70,
+                        width: 107,
+                        fit: BoxFit.cover,
                       ),
-                      const SizedBox(height: 6),
-                      const Text(
-                        'Refeição',
-                        style: TextStyle(color: Colors.grey, fontSize: 18),
-                      )
-                    ],
-                  ),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      InkWell(
-                        splashColor: Colors.black26,
-                        onTap: () {},
-                        child: Ink.image(
-                          image: const AssetImage(
-                              'assets/images/parmegiana_de_frango.png'),
-                          height: 100,
-                          width: 100,
-                          fit: BoxFit.cover,
-                        ),
+                    ),
+                    const SizedBox(height: 6),
+                    const Text(
+                      'Refeição',
+                      style: TextStyle(color: Colors.grey, fontSize: 18),
+                    )
+                  ],
+                ),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    InkWell(
+                      splashColor: Colors.black26,
+                      onTap: () {},
+                      child: Ink.image(
+                        image: const AssetImage('assets/images/lanches.png'),
+                        height: 70,
+                        width: 107,
+                        fit: BoxFit.cover,
                       ),
-                      const SizedBox(height: 6),
-                      const Text(
-                        'Lanches',
-                        style: TextStyle(color: Colors.grey, fontSize: 18),
-                      )
-                    ],
-                  ),
-                ],
-              ),
-              const SizedBox(
-                height: 18,
-              ),
-              CarouselSlider(
-                  items: imgList
-                      .map((e) => ClipRRect(
-                              child: Stack(
-                            fit: StackFit.expand,
-                            children: <Widget>[
-                              Image.network(
-                                // Image.network
-                                e,
-                                width: 1050,
+                    ),
+                    const SizedBox(height: 6),
+                    const Text(
+                      'Lanches',
+                      style: TextStyle(color: Colors.grey, fontSize: 18),
+                    )
+                  ],
+                ),
+              ],
+            ),
+            const SizedBox(
+              height: 18,
+            ),
+            CarouselSlider(
+                items: imgList
+                    .map((e) => ClipRRect(
+                            child: Stack(
+                          fit: StackFit.expand,
+                          children: <Widget>[
+                            InkWell(
+                              splashColor: Colors.black26,
+                              onTap: () {},
+                              child: Ink.image(
+                                image: NetworkImage(e),
                                 height: 350,
+                                width: 1050,
                                 fit: BoxFit.cover,
-                              )
-                            ],
-                          )))
-                      .toList(),
-                  options: CarouselOptions(
-                      enableInfiniteScroll: true,
-                      autoPlay: true,
-                      viewportFraction: 1)),
-              const SizedBox(
-                height: 32,
+                              ),
+                            ),
+                          ],
+                        )))
+                    .toList(),
+                options: CarouselOptions(
+                    enableInfiniteScroll: true,
+                    onPageChanged: (index, reason) =>
+                        setState(() => activeIndex = index),
+                    autoPlay: true,
+                    viewportFraction: 1)),
+            const SizedBox(
+              height: 32,
+            ),
+            Center(child: buildIndicator()),
+            const SizedBox(
+              height: 40,
+            ),
+            const Text("Famosos da cantina",
+                style: TextStyle(fontWeight: FontWeight.bold)),
+            Container(
+              alignment: Alignment.centerRight,
+              child: TextButton(
+                style: ButtonStyle(
+                    foregroundColor: MaterialStateProperty.resolveWith<Color>(
+                        (Set<MaterialState> states) {
+                      if (states.contains(MaterialState.pressed)) {
+                        return Colors.black;
+                      }
+                      return const Color.fromARGB(255, 4, 36, 116);
+                    }),
+                    overlayColor: MaterialStateProperty.all<Color>(
+                        const Color.fromARGB(0, 0, 0, 0))),
+                child: const Text("Ver mais"),
+                onPressed: () {},
               ),
-              buildIndicator()
-            ],
-          ),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    InkWell(
+                      splashColor: Colors.black26,
+                      onTap: () {},
+                      child: Ink.image(
+                        image: const AssetImage('assets/images/strogonoff.png'),
+                        height: 100,
+                        width: 100,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                    const SizedBox(height: 6),
+                    const Text(
+                      'Strogonoff',
+                      style: TextStyle(color: Colors.grey, fontSize: 18),
+                    )
+                  ],
+                ),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    InkWell(
+                      splashColor: Colors.black26,
+                      onTap: () {},
+                      child: Ink.image(
+                        image: const AssetImage('assets/images/croissant.png'),
+                        height: 100,
+                        width: 100,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                    const SizedBox(height: 6),
+                    const Text(
+                      'Croissant',
+                      style: TextStyle(color: Colors.grey, fontSize: 18),
+                    )
+                  ],
+                ),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    InkWell(
+                      splashColor: Colors.black26,
+                      onTap: () {},
+                      child: Ink.image(
+                        image: const AssetImage(
+                            'assets/images/sanduiche_natural.png'),
+                        height: 100,
+                        width: 100,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                    const SizedBox(height: 6),
+                    const Text(
+                      'Sanduíche',
+                      style: TextStyle(color: Colors.grey, fontSize: 18),
+                    )
+                  ],
+                ),
+              ],
+            ),
+            const SizedBox(
+              height: 18,
+            ),
+            InkWell(
+              splashColor: Colors.black26,
+              onTap: () {},
+              child: Ink.image(
+                image: const AssetImage('assets/images/salgados.png'),
+                height: 117,
+                width: 334,
+                fit: BoxFit.cover,
+              ),
+            ),
+          ],
         ),
       ),
     );
   }
 
-  Widget buildIndicator() =>
-      AnimatedSmoothIndicator(activeIndex: activeIndex, count: imgList.length);
+  Widget buildIndicator() => AnimatedSmoothIndicator(
+        activeIndex: activeIndex,
+        count: imgList.length,
+        effect: const WormEffect(
+          spacing: 16.0,
+          dotHeight: 7,
+          dotWidth: 7,
+        ),
+      );
 }
