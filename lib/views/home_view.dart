@@ -223,7 +223,7 @@ class _MyHomePageState extends State<MyHomePage> {
               splashColor: Colors.black26,
               onTap: () {},
               child: Ink.image(
-                image: const AssetImage('assets/images/salgados.png'),
+                image: const AssetImage('assets/images/banner_salgados.png'),
                 height: 117,
                 width: 334,
                 fit: BoxFit.cover,
